@@ -18,7 +18,7 @@ export const getTaskById = async (req, res) => {
   const taskId = req.params.id;
   const task = await Task.findById(taskId).exec();
   if (!task) {
-    res.json({
+    res.status(404).json({
       msg: "Task doesn't exist",
     });
   }

@@ -6,10 +6,11 @@ import {
   updateTask,
   deleteTask,
 } from "../controllers/taskController.js";
+import { verifyToken } from "../middlewares/authMiddleware.js";
 
 const taskRouter = express.Router();
 
-taskRouter.get("/", getAllTask);
+taskRouter.get("/", verifyToken,getAllTask);
 taskRouter.get("/:id", getTaskById);
 taskRouter.post("/", createTask);
 taskRouter.put("/:id", updateTask);
