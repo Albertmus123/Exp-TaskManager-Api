@@ -1,10 +1,11 @@
 import { Task } from "../models/task.js";
 
 export const createTask = async (req, res) => {
-  const { title, user } = req.body;
+  const { title } = req.body;
+  const userId = req.user.id;
   await Task.create({
     title,
-    user,
+    user: userId,
   });
   res.json({
     message: "Task created Successfull!",

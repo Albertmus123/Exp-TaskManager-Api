@@ -7,12 +7,13 @@ import {
   deleteTask,
 } from "../controllers/taskController.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
+import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 
 const taskRouter = express.Router();
 
-taskRouter.get("/", verifyToken,getAllTask);
+taskRouter.get("/", verifyToken, authorizeRoles("user"), getAllTask);
 taskRouter.get("/:id", getTaskById);
-taskRouter.post("/", createTask);
+taskRouter.post("/", verifyToken, authorizeRoles("admin"), createTask);
 taskRouter.put("/:id", updateTask);
 taskRouter.delete("/:id", deleteTask);
 
